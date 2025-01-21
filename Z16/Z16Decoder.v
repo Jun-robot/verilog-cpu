@@ -38,6 +38,8 @@ module Z16Decoder(
         4'h9 : get_imm = {{8{i_instr[15]}}, i_instr[15:8]}; //add immediate
         4'hA : get_imm = {{12{i_instr[15]}}, i_instr[15:12]};  //load
         4'hB : get_imm = {{12{i_instr[7]}}, i_instr[7:4]};  //store
+        4'hC : get_imm = {{12{i_instr[15]}}, i_instr[15:12]};  //jal
+        4'hD : get_imm = {{12{i_instr[15]}}, i_instr[15:12]};  //jrl
         default : get_imm = 16'h0000;
       endcase
     end
@@ -46,11 +48,9 @@ module Z16Decoder(
   function get_rd_wen;
     input[15:0] i_instr;
     begin 
-      if(i_instr[3:0] <=4'h8) begin //culuclation
+      if(i_instr[3:0] <=4'hA) begin //culuclation, addi, load
         get_rd_wen = 1'b1;
-      end else if(4'h9 == i_instr[3:0]) begin //add immediate
-        get_rd_wen = 1'b1;
-      end else if(4'hA == i_instr[3:0]) begin //load
+      end else if((i_instr[3:0]==4'hC) || (i_instr[3:0]==4'hD)) begin //jal, jrl
         get_rd_wen = 1'b1;
       end else begin
         get_rd_wen = 1'b0;
