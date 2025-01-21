@@ -1,0 +1,61 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Tue Jan 21 00:55:41 2025
+[*]
+[dumpfile] "/Users/jumpei/Documents/GitHub/verilog-cpu/Z16/wave.vcd"
+[dumpfile_mtime] "Mon Jan 20 16:18:04 2025"
+[dumpfile_size] 7577
+[savefile] "/Users/jumpei/Documents/GitHub/verilog-cpu/Z16/waveform.sav"
+[timestart] 0
+[size] 1472 782
+[pos] 1775 -14
+*-3.450773 8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[treeopen] Z16CPU_tb.
+[treeopen] Z16CPU_tb.CPU.
+[sst_width] 240
+[signals_width] 161
+[sst_expanded] 1
+[sst_vpaned_height] 223
+@28
+Z16CPU_tb.CPU.i_clk
+@22
+Z16CPU_tb.CPU.r_pc[15:0]
+Z16CPU_tb.CPU.w_instr[15:0]
+@200
+-decoder
+@22
+Z16CPU_tb.CPU.Decoder.o_opcode[3:0]
+Z16CPU_tb.CPU.Decoder.o_imm[15:0]
+Z16CPU_tb.CPU.Decoder.o_alu_ctrl[3:0]
+Z16CPU_tb.CPU.Decoder.o_rs1_addr[3:0]
+Z16CPU_tb.CPU.Decoder.o_rs2_addr[3:0]
+Z16CPU_tb.CPU.Decoder.o_rd_addr[3:0]
+@28
+Z16CPU_tb.CPU.Decoder.o_rd_wen
+Z16CPU_tb.CPU.Decoder.o_mem_wen
+@200
+-reg
+@22
+Z16CPU_tb.CPU.RegFile.i_rs1_addr[3:0]
+Z16CPU_tb.CPU.RegFile.o_rs1_data[15:0]
+Z16CPU_tb.CPU.RegFile.i_rs2_addr[3:0]
+Z16CPU_tb.CPU.RegFile.o_rs2_data[15:0]
+Z16CPU_tb.CPU.RegFile.i_rd_addr[3:0]
+Z16CPU_tb.CPU.RegFile.i_rd_data[15:0]
+@28
+Z16CPU_tb.CPU.RegFile.i_rd_wen
+@200
+-alu
+@22
+Z16CPU_tb.CPU.ALU.i_data_a[15:0]
+Z16CPU_tb.CPU.ALU.i_data_b[15:0]
+Z16CPU_tb.CPU.ALU.o_data[15:0]
+@200
+-mem
+@22
+Z16CPU_tb.CPU.DataMem.i_addr[15:0]
+Z16CPU_tb.CPU.DataMem.i_data[15:0]
+@28
+Z16CPU_tb.CPU.DataMem.i_wen
+[pattern_trace] 1
+[pattern_trace] 0

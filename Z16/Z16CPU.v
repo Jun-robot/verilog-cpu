@@ -15,9 +15,13 @@ module Z16CPU(
   wire w_rd_wen; //write enable for destination register
   wire w_mem_wen; //write enable for memory
   wire[3:0] w_alu_ctrl; //ALU control signal
+  
+  wire[3:0] w_opcode;
+  wire[15:0] w_data_b;
 
   wire[15:0] w_rs1_data; //source register data
   wire[15:0] w_rs2_data; //source register data
+  wire[15:0] w_rd_data;
 
   wire[15:0] w_alu_data; //ALU output
   wire[15:0] w_mem_rdata; //memory data
@@ -38,6 +42,7 @@ module Z16CPU(
 
   Z16Decoder Decoder(
     .i_instr (w_instr),
+    .o_opcode (w_opcode),
     .o_rd_addr (w_rd_addr),
     .o_rs1_addr (w_rs1_addr),
     .o_rs2_addr (w_rs2_addr),
@@ -47,20 +52,22 @@ module Z16CPU(
     .o_alu_ctrl (w_alu_ctrl)
   );
 
+  assign w_rd_data = (w_opcode[3:0]==4'hA) ? w_mem_rdata : w_alu_data;
   Z16RegisterFile RegFile(
     .i_clk (i_clk),
     .i_rs1_addr (w_rs1_addr),
     .o_rs1_data (w_rs1_data),
     .i_rs2_addr (w_rs2_addr),
     .o_rs2_data (w_rs2_data),
-    .i_rd_data  (w_mem_rdata),
+    .i_rd_data  (w_rd_data),
     .i_rd_addr  (w_rd_addr),
     .i_rd_wen   (w_rd_wen)
   );
 
+  assign w_data_b = (w_opcode <= 4'h8) ? w_rs2_data : w_imm; //select data_b
   Z16ALU ALU(
-    .i_data_a ({12'b0, w_rs1_addr}),
-    .i_data_b (w_imm),
+    .i_data_a (w_rs1_data),
+    .i_data_b (w_data_b),
     .i_ctrl   (w_alu_ctrl),
     .o_data   (w_alu_data)
   );
