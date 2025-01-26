@@ -16,11 +16,14 @@ module Z16InstrMemory(
 
   assign mem[0] = 16'h0010; // ADD ZR ZR B1
   assign mem[1] = 16'h0020; // ADD ZR ZR B2
-  assign mem[2] = 16'h0A19; // ADDI 10 B1
+  assign mem[2] = 16'h0519; // ADDI 5 B1
   assign mem[3] = 16'h1220; // ADD B1 B2 B2
   assign mem[4] = 16'hFF19; // ADDI -1 B1
   assign mem[5] = 16'hFC4F; // BLT B1 ZR -4
-  assign mem[6] = 16'h00FD; // JRL 0 ZR G11
+  assign mem[6] = 16'h0040; // ADD ZR ZR G0
+  assign mem[7] = 16'h7A49; // ADDI 122 G0
+  assign mem[8] = 16'h240B; // STORE B2 G0 0
+  assign mem[9] = 16'h00FD; // JRL 0 ZR G11
 
 
 endmodule
