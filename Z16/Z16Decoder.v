@@ -14,7 +14,7 @@ module Z16Decoder(
   assign o_opcode = i_instr[3:0];
   assign o_rd_addr = i_instr[7:4];
   assign o_rs1_addr = get_rs1_addr(i_instr);
-  assign o_rs2_addr = i_instr[15:12];
+  assign o_rs2_addr = get_rs2_addr(i_instr);
 
   assign o_imm = get_imm(i_instr);
   assign o_rd_wen = get_rd_wen(i_instr);
@@ -26,7 +26,20 @@ module Z16Decoder(
     begin
       case(i_instr[3:0])
         4'h9 : get_rs1_addr = i_instr[7:4]; //add immediate
+        4'hE : get_rs1_addr = {2'b00, i_instr[5:4]};
+        4'hF : get_rs1_addr = {2'b00, i_instr[5:4]};
         default : get_rs1_addr = i_instr[11:8]; 
+      endcase
+    end
+  endfunction
+
+  function[3:0] get_rs2_addr;
+    input[15:0] i_instr;
+    begin
+      case(i_instr[3:0])
+        4'hE : get_rs2_addr = {2'b00, i_instr[7:6]};
+        4'hF : get_rs2_addr = {2'b00, i_instr[7:6]};
+        default : get_rs2_addr = i_instr[15:12]; 
       endcase
     end
   endfunction
@@ -40,6 +53,8 @@ module Z16Decoder(
         4'hB : get_imm = {{12{i_instr[7]}}, i_instr[7:4]};  //store
         4'hC : get_imm = {{12{i_instr[15]}}, i_instr[15:12]};  //jal
         4'hD : get_imm = {{12{i_instr[15]}}, i_instr[15:12]};  //jrl
+        4'hE : get_imm = {{8{i_instr[15]}}, i_instr[15:8]};  //branch
+        4'hF : get_imm = {{8{i_instr[15]}}, i_instr[15:8]};  //branch
         default : get_imm = 16'h0000;
       endcase
     end
