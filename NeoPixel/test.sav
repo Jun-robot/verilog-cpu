@@ -1,0 +1,59 @@
+[*]
+[*] GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+[*] Sun Jan 26 17:20:40 2025
+[*]
+[dumpfile] "/Users/jumpei/Documents/GitHub/verilog-cpu/NeoPixel/tb_neopixel_driver.vcd"
+[dumpfile_mtime] "Sun Jan 26 17:09:26 2025"
+[dumpfile_size] 124547
+[savefile] "/Users/jumpei/Documents/GitHub/verilog-cpu/NeoPixel/test.sav"
+[timestart] 692
+[size] 1512 822
+[pos] -1 -1
+*-7.000000 1052 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[treeopen] tb_neopixel_driver.
+[treeopen] tb_neopixel_driver.dut.
+[sst_width] 240
+[signals_width] 169
+[sst_expanded] 1
+[sst_vpaned_height] 237
+@28
+tb_neopixel_driver.clk
+tb_neopixel_driver.led_out
+@22
+tb_neopixel_driver.dut.w_mem_addr[7:0]
+tb_neopixel_driver.dut.w_mem_data[23:0]
+tb_neopixel_driver.dut.npx_tx.r_bit_index[4:0]
+@28
+tb_neopixel_driver.dut.npx_tx.r_state[2:0]
+@800022
+tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+@29
+(0)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+@28
+(1)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(2)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(3)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(4)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(5)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(6)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(7)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(8)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(9)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(10)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(11)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(12)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(13)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(14)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(15)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(16)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(17)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(18)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(19)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(20)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(21)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(22)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+(23)tb_neopixel_driver.dut.npx_tx.r_shift_reg[23:0]
+@1001200
+-group_end
+[pattern_trace] 1
+[pattern_trace] 0
