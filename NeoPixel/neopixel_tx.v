@@ -1,5 +1,5 @@
 module neopixel_tx(
-  input wire i_clk, //10MHz 0.1us
+  input wire i_clk, //27MHz 0.037us
   input wire i_reset,
   input wire i_start,
 
@@ -11,11 +11,11 @@ module neopixel_tx(
 
   localparam NUM_PIXELS = 16'd8;
 
-  localparam T0H_CYCLES = 16'd3;
-  localparam T0L_CYCLES = 16'd9;
-  localparam T1H_CYCLES = 16'd6;
-  localparam T1L_CYCLES = 16'd6;
-  localparam TRESET_CYCLES = 16'd800;
+  localparam T0H_CYCLES = 16'd8;
+  localparam T0L_CYCLES = 16'd24;
+  localparam T1H_CYCLES = 16'd16;
+  localparam T1L_CYCLES = 16'd16;
+  localparam TRESET_CYCLES = 16'd2200;
 
   localparam S_IDLE  = 3'd0;
   localparam S_HIGH  = 3'd1;
@@ -40,7 +40,7 @@ module neopixel_tx(
 
 
   //-----------------------------------------------------
-  // メインステートマシン
+  // メイン
   //-----------------------------------------------------
   always @(posedge i_clk or posedge i_reset) begin
     if (i_reset) begin
@@ -66,7 +66,7 @@ module neopixel_tx(
           r_pixel_index <= 8'd0;
           r_bit_index   <= 5'd0;
           o_mem_addr    <= 8'd0;       // ピクセル0 を読み出す
-          r_shift_reg   <= i_mem_data; // 今すぐ取り込む(同期RAMなら1クロック待つ工夫が必要な場合も)
+          r_shift_reg   <= i_mem_data;
           r_counter     <= 16'd0;
         end
       end
