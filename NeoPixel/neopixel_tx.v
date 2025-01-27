@@ -42,7 +42,8 @@ module neopixel_tx(
   //-----------------------------------------------------
   // メイン
   //-----------------------------------------------------
-  always @(posedge i_clk or posedge i_reset) begin
+  // always @(posedge i_clk or posedge i_reset) begin
+  always @(posedge i_clk) begin
     if (i_reset) begin
       // リセット時初期化
       r_state       <= S_IDLE;
@@ -84,13 +85,13 @@ module neopixel_tx(
 
         // 現在送信中のビット値を判定
         if (r_shift_reg[23] == 1'b1) begin
-          // '1'ビット => T1H_CYCLESだけHIGH
+          // '1'
           if (r_counter >= (T1H_CYCLES - 1)) begin
             r_state   <= S_LOW;
             r_counter <= 16'd0;
           end
         end else begin
-          // '0'ビット => T0H_CYCLESだけHIGH
+          // '0'
           if (r_counter >= (T0H_CYCLES - 1)) begin
             r_state   <= S_LOW;
             r_counter <= 16'd0;
@@ -109,13 +110,14 @@ module neopixel_tx(
 
         r_counter <= r_counter + 16'd1;
 
+        // 現在送信中のビット値を判定
         if (r_shift_reg[23] == 1'b1) begin
-          // '1'ビット => T1L_CYCLESだけLOW
+          // '1'を送信中
           if (r_counter >= (T1L_CYCLES - 1)) begin
-            // 1ビット送信完了 -> シフト
-            r_shift_reg <= {r_shift_reg[22:0], 1'b0};
-            r_bit_index <= r_bit_index + 5'd1;
-            r_counter   <= 16'd0;
+            // 1ビット送信完了
+            r_shift_reg <= {r_shift_reg[22:0], 1'b0}; //次の送信に向けてシフト
+            r_bit_index <= r_bit_index + 5'd1; //次のビットに行ったことを記録
+            r_counter   <= 16'd0; //カウンタをリセット
             // 24ビット全部送った?
             if (r_bit_index == 5'd23) begin
               // 次のピクセルに移るか、リセットへ行くか
@@ -126,7 +128,7 @@ module neopixel_tx(
                 o_mem_addr    <= r_pixel_index + 8'd1;
                 r_bit_index   <= 5'd0;
                 // 新ピクセルのデータを取り込む
-                r_shift_reg   <= i_mem_data;
+                r_shift_reg   <= i_mem_data; //こいつはここにいるべきじゃない。こいつのせいで1ピクセル遅れる。
                 r_state       <= S_HIGH;
               end
             end else begin
@@ -135,18 +137,19 @@ module neopixel_tx(
             end
           end
         end else begin
-          // '0'ビット => T0L_CYCLESだけLOW
+          // '0'を送信中
           if (r_counter >= (T0L_CYCLES - 1)) begin
             // 1ビット送信完了 -> シフト
             r_shift_reg <= {r_shift_reg[22:0], 1'b0};
             r_bit_index <= r_bit_index + 5'd1;
             r_counter   <= 16'd0;
-            // 24ビット全部送った?
+            // 24ビット全部送ったか
             if (r_bit_index == 5'd23) begin
-              // 次のピクセルに移るか、リセットへ行くか
+              // 全ピクセル送ったか
               if (r_pixel_index == (NUM_PIXELS - 1)) begin
-                r_state <= S_RESET; 
+                r_state <= S_RESET; // すべて送信済み 
               end else begin
+                // 次のピクセルへ
                 r_pixel_index <= r_pixel_index + 8'd1;
                 o_mem_addr    <= r_pixel_index + 8'd1;
                 r_bit_index   <= 5'd0;
@@ -167,7 +170,7 @@ module neopixel_tx(
       S_RESET: begin
         o_led_out <= 1'b0;
         r_counter <= r_counter + 16'd1;
-        // 指定サイクル(50us以上)を経過したら送信完
+        // 指定サイクルを経過したら送信完
         if (r_counter >= (TRESET_CYCLES - 1)) begin
           r_state   <= S_DONE;
           r_counter <= 16'd0;
@@ -178,7 +181,7 @@ module neopixel_tx(
       // 送信完了状態
       //----------------------------------------------
       S_DONE: begin
-        // 今回は簡単に1クロック後 IDLE に戻る
+        // 1クロック後 IDLE に戻る
         r_state <= S_IDLE;
       end
 
